@@ -1,0 +1,15 @@
+{
+	"id": "599b735c-b8e3-408e-b028-c1c4204f5bad",
+	"name": "QA",
+	"values": [
+		{
+			"key": "userId",
+			"value": "2",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-02-16T15:38:40.984Z",
+	"_postman_exported_using": "Postman/10.10.5"
+}
