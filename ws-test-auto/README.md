@@ -15,4 +15,5 @@ Important Libraries
 cucumber
 testng
 rest assured
+rest assured json validator
 ```

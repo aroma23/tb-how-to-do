@@ -20,6 +20,7 @@ public class ResReqSteps {
     private Response response;
 //    private final RequestSpecification request = given().baseUri("https://reqres.in");
     private final RequestSpecification request = given().baseUri("https://reqres.in").contentType(ContentType.JSON);
+    private String userId;
     @Given("^User exist in system$")
     public void userExistInSystem() {
         System.out.println("Lets assume user always exists in mock");
@@ -89,6 +90,9 @@ public class ResReqSteps {
         response.then()
                 .body(JsonSchemaValidator.matchesJsonSchema(
                         new File("src/test/resources/schemas/createUser.json")));
+//        response.body().prettyPrint();
+//        this.userId = response.then().extract().path("id");
+//        System.out.println("Created user's id: " + userId);
     }
 
     @When("Delete User api is called with userId: {string}")
