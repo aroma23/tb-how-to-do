@@ -1,0 +1,6 @@
+{
+  "first_name": "<<firstName>>",
+  "last_name": "<<lastName>>",
+  "avatar": "https://reqres.in/img/faces/<<lastName>>.jpg",
+  "job":"<<job>>"
+}

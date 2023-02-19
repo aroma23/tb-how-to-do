@@ -1,43 +1,34 @@
 {
-  "required": [
-    "data"
-  ],
   "properties": {
-    "data": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "email": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "job": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "email",
-        "first_name",
-        "last_name",
-        "avatar",
-        "id",
-        "job",
-        "createdAt"
-      ]
+    "email": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string"
+    },
+    "job": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "email",
+    "first_name",
+    "last_name",
+    "avatar",
+    "job",
+    "id",
+    "createdAt"
+  ]
 }
