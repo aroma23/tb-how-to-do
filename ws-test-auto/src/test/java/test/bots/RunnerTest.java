@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(features = {"src/test/resources"}, plugin = {"json:target/cucumber.json",
-        "html:target/cucumber-html-reports/consolidated.html", "rerun:target/cucumber-html-reports/rerun.txt"})
+        "html:target/cucumber-html-reports/consolidated.html"})
 public class RunnerTest extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = true)

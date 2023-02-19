@@ -108,7 +108,9 @@ public class ResReqSteps {
         createUserBody =  createUserBody.replace("<<firstName>>", firstName)
                 .replace("<<lastName>>", lastName)
                 .replace("<<job>>", job);
+//        response = request.body(createUserBody).log().all().post("/api/users").andReturn();
         response = request.body(createUserBody).post("/api/users").andReturn();
+//        response.then().log().all();
     }
 
     @Then("Get User api response should have correct firstName: {string}, and lastName: {string}")
@@ -116,5 +118,37 @@ public class ResReqSteps {
         response.then()
                 .body("data.first_name", equalTo(firstName))
                 .body("data.last_name", equalTo(lastName));
+    }
+
+    @Then("Update User api should respond with response code: {int}")
+    public void updateUserApiShouldRespondWithResponseCode(int expectedCode) {
+        response.then().statusCode(expectedCode);
+    }
+
+    @Then("Update User api response should have right schema")
+    public void updateUserApiResponseShouldHaveRightSchema() {
+        response
+                .then()
+                .body(JsonSchemaValidator
+                        .matchesJsonSchema(new File("src/test/resources/schemas/updateUser.json")));
+    }
+
+    @When("Update User api is called to update user: {string} info email: {string}, and job: {string}")
+    public void updateUserApiIsCalledToUpdateUserInfoEmailAndJob(String id, String email,
+                                                                 String job) throws IOException {
+        String updateUserBody = Files.readString(Paths.get("src/test/resources/payloads/updateUser.json"));
+        updateUserBody =  updateUserBody
+                .replace("<<email>>", email)
+                .replace("<<job>>", job);
+//        response = request.body(updateUserBody).log().all().put("/api/users/" + id);
+        response = request.body(updateUserBody).put("/api/users/" + id).andReturn();
+//        response.then().log().all();
+    }
+
+    @Then("Update User api response should have updated email: {string}, and job: {string}")
+    public void updateUserApiResponseShouldHaveUpdatedEmailAndJob(String email, String job) {
+        response.then()
+                .body("email", equalTo(email))
+                .body("job", equalTo(job));
     }
 }

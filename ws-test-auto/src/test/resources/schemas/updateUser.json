@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "job": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "email",
+    "job",
+    "updatedAt"
+  ]
+}

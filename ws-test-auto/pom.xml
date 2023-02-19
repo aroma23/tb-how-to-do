@@ -20,8 +20,8 @@
     <cucumber.version>7.9.0</cucumber.version>
     <maven.cucumber.report.version>5.7.4</maven.cucumber.report.version>
     <rest.assured.version>4.5.1</rest.assured.version>
+    <threadCount>1</threadCount>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.testng</groupId>
@@ -98,6 +98,15 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+          <configuration>
+            <testFailureIgnore>true</testFailureIgnore>
+            <properties>
+              <property>
+                <name>dataproviderthreadcount</name>
+                <value>${threadCount}</value>
+              </property>
+            </properties>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
@@ -130,6 +139,32 @@
           <source>11</source>
           <target>11</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>net.masterthought</groupId>
+        <artifactId>maven-cucumber-reporting</artifactId>
+        <version>${maven.cucumber.report.version}</version>
+        <executions>
+          <execution>
+            <id>execution</id>
+            <phase>test</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <projectName>Test Bots Rest Demo</projectName>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <jsonFiles>
+                <param>**/cucumber.json</param>
+              </jsonFiles>
+              <checkBuildResult>false</checkBuildResult>
+              <classifications>
+                <version>${project.version}</version>
+                <Platform>${os.name}</Platform>
+              </classifications>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
