@@ -8,10 +8,11 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Properties;
+
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -19,8 +20,19 @@ import static org.hamcrest.Matchers.equalTo;
 public class ResReqSteps {
     private Response response;
 //    private final RequestSpecification request = given().baseUri("https://reqres.in");
-    private final RequestSpecification request = given().baseUri("https://reqres.in").contentType(ContentType.JSON);
+//    private final RequestSpecification request = given().contentType(ContentType.JSON).log().all();
+    private final RequestSpecification request = given().contentType(ContentType.JSON);
     private String userId;
+    private Properties properties;
+
+    public ResReqSteps() throws IOException {
+        String testEnv = System.getProperty("test.env").toLowerCase();
+        FileReader reader=new FileReader(String.format("src/test/resources/%s.properties", testEnv));
+        properties = new Properties();
+        properties.load(reader);
+        properties.putAll(System.getProperties());
+        request.baseUri(properties.getProperty("host.url", "https://reqres.in"));
+    }
     @Given("^User exist in system$")
     public void userExistInSystem() {
         System.out.println("Lets assume user always exists in mock");
@@ -74,8 +86,6 @@ public class ResReqSteps {
                         .replace("<<lastName>>", lastName)
                         .replace("<<email>>", email)
                         .replace("<<job>>", job);
-
-//        response = request.body(createUserBody).log().all().post("/api/users").andReturn();
         response = request.body(createUserBody).post("/api/users").andReturn();
 //        response.then().log().all();
     }
@@ -112,7 +122,6 @@ public class ResReqSteps {
         createUserBody =  createUserBody.replace("<<firstName>>", firstName)
                 .replace("<<lastName>>", lastName)
                 .replace("<<job>>", job);
-//        response = request.body(createUserBody).log().all().post("/api/users").andReturn();
         response = request.body(createUserBody).post("/api/users").andReturn();
 //        response.then().log().all();
     }
