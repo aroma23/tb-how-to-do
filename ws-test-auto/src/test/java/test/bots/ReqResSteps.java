@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
  * @version 1.0
  * @since   2023-02-01
  */
-public class ResReqSteps {
+public class ReqResSteps {
     private Response response;
 //    private final RequestSpecification request = given().contentType(ContentType.JSON).log().all();
     private final RequestSpecification request = given().contentType(ContentType.JSON);
@@ -30,7 +30,7 @@ public class ResReqSteps {
     private String userId;
     private Properties properties;
 
-    public ResReqSteps() throws IOException {
+    public ReqResSteps() throws IOException {
         String testEnv = System.getProperty("test.env", "mock").toLowerCase();
         FileReader reader=new FileReader(String.format("src/test/resources/%s.properties", testEnv));
         properties = new Properties();
