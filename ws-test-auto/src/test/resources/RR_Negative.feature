@@ -22,3 +22,14 @@ Feature: ResReq Negative Testing
     Examples:
       | firstName | lastName   | job   |
       | test      | bots-tamil | actor |
+
+  @LoginUser
+  Scenario Outline: Login User
+  Description: The purpose of this test is check whether login user api works as expected
+    Given User exist in system
+    When Login User api is called with email: '<email>' and password: '<password>'
+    Then Login User api should respond with response code: 400
+
+    Examples:
+      | email                 | password   |
+      | janet-dummy@reqres.in | cityslicka |

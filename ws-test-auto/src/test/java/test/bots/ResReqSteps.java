@@ -17,16 +17,21 @@ import java.util.Properties;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * @author  Muthukumar Ramaiyah (@testbots-tamil youtube channel)
+ * @version 1.0
+ * @since   2023-02-01
+ */
 public class ResReqSteps {
     private Response response;
-//    private final RequestSpecification request = given().baseUri("https://reqres.in");
 //    private final RequestSpecification request = given().contentType(ContentType.JSON).log().all();
     private final RequestSpecification request = given().contentType(ContentType.JSON);
+//    private final RequestSpecification request = given().log().all();
     private String userId;
     private Properties properties;
 
     public ResReqSteps() throws IOException {
-        String testEnv = System.getProperty("test.env").toLowerCase();
+        String testEnv = System.getProperty("test.env", "mock").toLowerCase();
         FileReader reader=new FileReader(String.format("src/test/resources/%s.properties", testEnv));
         properties = new Properties();
         properties.load(reader);
@@ -49,6 +54,7 @@ public class ResReqSteps {
 
     @Then("Get User api should respond with response code: {int}")
     public void getUserApiShouldRespondWithResponseCode(int expectedCode) {
+//        response.body().prettyPrint();
         response.then().statusCode(expectedCode);
     }
 
@@ -163,5 +169,25 @@ public class ResReqSteps {
         response.then()
                 .body("email", equalTo(email))
                 .body("job", equalTo(job));
+    }
+
+    @Then("Login User api should respond with response code: {int}")
+    public void loginUserApiShouldRespondWithResponseCode(int expectedCode) {
+//        response.body().prettyPrint();
+        response.then().statusCode(expectedCode);
+    }
+
+    @Then("Login User api response should have right schema")
+    public void loginUserApiResponseShouldHaveRightSchema() {
+        response.then()
+                .body(JsonSchemaValidator.matchesJsonSchema(
+                        new File("src/test/resources/schemas/loginUser.json")));
+    }
+
+    @When("Login User api is called with email: {string} and password: {string}")
+    public void loginUserApiIsCalledWithEmailEmailAndPasswordPassword(String email, String pwd) throws IOException {
+        String loginUserBody = Files.readString(Paths.get("src/test/resources/payloads/loginUser.json"));
+        loginUserBody = loginUserBody.replace("<<email>>", email).replace("<<pwd>>", pwd);
+        response = request.body(loginUserBody).post("/api/login").andReturn();
     }
 }

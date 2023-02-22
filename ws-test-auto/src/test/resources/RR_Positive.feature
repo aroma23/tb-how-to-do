@@ -59,3 +59,15 @@ Feature: ResReq Positive Testing
       | id  | expectedCode |
       | 2   | 204          |
       | 1   | 204          |
+
+  @LoginUser
+  Scenario Outline: Login User
+  Description: The purpose of this test is check whether login user api works as expected
+    Given User exist in system
+    When Login User api is called with email: '<email>' and password: '<password>'
+    Then Login User api should respond with response code: 200
+    Then Login User api response should have right schema
+
+    Examples:
+      | email                  | password   |
+      | janet.weaver@reqres.in | cityslicka |

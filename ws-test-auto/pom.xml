@@ -105,7 +105,7 @@
             </systemPropertyVariables>
             <properties>
               <property>
-                <name>dataproviderthread.count</name>
+                <name>dataproviderthreadcount</name>
                 <value>${thread.count}</value>
               </property>
             </properties>
