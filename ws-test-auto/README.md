@@ -17,3 +17,10 @@ testng
 rest assured
 rest assured json validator
 ```
+maven commands to run
+```markdown
+mvn clean test -Dcucumber.filter.tags=@All
+mvn clean test -Dcucumber.filter.tags="@Positive and @GetUser"
+mvn clean test -Dcucumber.filter.tags="@GetUsers or @GetUser"
+mvn clean test -Dcucumber.filter.tags="@GetUsers or @GetUser" -Dtest.env=qa
+```
