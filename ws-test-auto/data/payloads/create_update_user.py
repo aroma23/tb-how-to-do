@@ -5,3 +5,4 @@ CREATE_UPDATE_USER_PAYLOAD = {
     "avatar": "https://reqres.in/img/faces/2-image.jpg",
     "job": "tester",
 }
+LOGIN_USER_PAYLOAD = {"email": "janet.weaver@reqres.in", "password": "cityslicka"}

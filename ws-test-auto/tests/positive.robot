@@ -42,6 +42,15 @@ Create User Test
     [Tags]    create_user
     Create User Wrapper
 
+Login User Test
+    [Documentation]    *Validate login user api*
+    [Tags]    login_user
+    ${response}    Login User    ${LOGIN_USER_PAYLOAD}
+    Status Should Be    200    ${response}
+    ${response_as_dictionary}    Convert To Dictionary    ${response.json()}
+    ${schema_as_dictionary}    Convert To Dictionary    ${LOGIN_USER_RESPONSE_SCHEMA}
+    Validate Json By Schema    ${response_as_dictionary}    ${schema_as_dictionary}
+
 Get User Test
     [Documentation]    *Validate get user api*
     [Tags]    get_user
@@ -98,18 +107,6 @@ Update User Wrapper
     should be equal    ${response_as_dictionary['last_name']}    ${last_name}
     should be equal    ${response_as_dictionary['email']}    ${first_name}.${last_name}@testbots.com
 
-Get User Wrapper
-    [Arguments]    ${user_id}
-    ${response}    Get Users    ${user_id}
-    Status Should Be    200    ${response}
-    ${resp_dict}    Convert To Dictionary    ${response.json()}
-    Validate Json By Schema file    ${resp_dict}    ${CURDIR}/../data/schemas/get_user_response_schema.json
-    ${schema_dict}    Convert To Dictionary    ${GET_USER_RESPONSE_SCHEMA}
-    Validate Json By Schema    ${resp_dict}    ${schema_dict}
-    ${first_name}    Get From Dictionary    ${resp_dict['data']}    first_name
-    should be equal    ${first_name}    Janet
-    should be equal    ${resp_dict['data']['last_name']}    Weaver
-
 Get Users Wrapper
     ${response}    Get Users
     Status Should Be    200    ${response}
@@ -122,3 +119,15 @@ Delete User Wrapper
     [Arguments]    ${user_id}
     ${response}    Delete User    ${user_id}
     Status Should Be    204    ${response}
+
+Get User Wrapper
+    [Arguments]    ${user_id}    ${expected_code}=200
+    ${response}    Get Users    ${user_id}    ${expected_code}
+    Status Should Be    ${expected_code}    ${response}
+    ${resp_dict}    Convert To Dictionary    ${response.json()}
+    Validate Json By Schema file    ${resp_dict}    ${CURDIR}/../data/schemas/get_user_response_schema.json
+    ${schema_dict}    Convert To Dictionary    ${GET_USER_RESPONSE_SCHEMA}
+    Validate Json By Schema    ${resp_dict}    ${schema_dict}
+    ${first_name}    Get From Dictionary    ${resp_dict['data']}    first_name
+    should be equal    ${first_name}    Janet
+    should be equal    ${resp_dict['data']['last_name']}    Weaver

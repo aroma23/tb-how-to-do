@@ -20,9 +20,8 @@ Create Session for RR Service
 
 Get Users
     [Documentation]    GET /api/users/{user_id}
-    [Arguments]    ${user_id}=${EMPTY}
-    ${response}    GET On Session    ${RR_SESSION}    url=/api/users/${user_id}
-    Request Should Be Successful
+    [Arguments]    ${user_id}=${EMPTY}    ${expected_code}=200
+    ${response}    GET On Session    ${RR_SESSION}    url=/api/users/${user_id}    expected_status=${expected_code}
     RETURN    ${response}
 
 Create User
@@ -30,6 +29,13 @@ Create User
     [Arguments]    ${body}
     ${response}    POST On Session    ${RR_SESSION}    url=/api/users    json=${body}
     Request Should Be Successful
+    RETURN    ${response}
+
+Login User
+    [Documentation]    POST /api/login
+    [Arguments]    ${body}    ${expected_code}=200
+#    ${response}    POST On Session    ${RR_SESSION}    expected_status=${expected_code}    url=/api/login    json=${body}
+    ${response}    POST    expected_status=${expected_code}    url=${HOST_URL}/api/login    json=${body}
     RETURN    ${response}
 
 Update User
@@ -45,23 +51,3 @@ Delete User
     ${response}    Delete On Session    ${RR_SESSION}    url=/api/users/${user_id}
     Request Should Be Successful
     RETURN    ${response}
-#    [Return]    ${response}
-#    Request Should Be Successful
-#    ${response}    DELETE On Session    ${FA_SESSION}    url=/api/v1/coreNetworkL3Device/${device_id}
-#    [Arguments]    ${device_id}
-#    [Documentation]    GET /api/v1/coreNetworkL3Device/{device_id}
-#Delete L3 Device
-#
-#    [Return]    ${response}
-#    Request Should Be Successful
-#    ${response}    GET On Session    ${FA_SESSION}    url=/api/v1/coreNetworkL3Device/${device_id}
-#    [Arguments]    ${device_id}
-#    [Documentation]    GET /api/v1/coreNetworkL3Device/{device_id}
-#Get L3 Device
-#
-#    [Return]    ${response}
-#    Request Should Be Successful
-#    ${response}    PATCH On Session    ${FA_SESSION}    url=/api/v1/coreNetworkL3Device/${device_id}    json=${body}
-#    [Arguments]    ${device_id}    ${body}
-#    [Documentation]    PATCH /api/v1/coreNetworkL3Device/{device_id}
-#Update L3 Device

@@ -45,6 +45,9 @@ pyenv local robot_3.7.2
 
 ```commandline
 robot -d results -i GetUsers -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
+robot -d results -i create_user_negative -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
+robot -d results -i get_user_negative -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
+robot -d results -i login_user -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
 robot -d results -i CreateUser -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
 robot -d results -i createuser -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
 robot -d results -i UpdateUser -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html

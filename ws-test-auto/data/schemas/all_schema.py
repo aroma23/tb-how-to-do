@@ -71,6 +71,10 @@ GET_USER_RESPONSE_SCHEMA = {
         }
     },
 }
+LOGIN_USER_RESPONSE_SCHEMA = {
+    "required": ["token"],
+    "properties": {"token": {"type": "string"}},
+}
 GET_USERS_RESPONSE_SCHEMA = {
     "required": ["page", "per_page", "total", "total_pages", "data", "support"],
     "properties": {
