@@ -1,0 +1,4 @@
+recursive-include config *
+recursive-include data *
+recursive-include libraries *
+recursive-include resources *
