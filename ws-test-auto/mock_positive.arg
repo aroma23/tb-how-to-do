@@ -1,0 +1,8 @@
+--include all
+--exclude ignore
+--name Mock Positive Tests
+-V config/mock.py
+-d results/
+--suite positive
+# This is a comment line
+tests/

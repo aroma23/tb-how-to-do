@@ -1,0 +1,7 @@
+--include all
+--exclude ignore
+--name Mock Regression Tests
+-V config/mock.py
+-d results/
+# This is a comment line
+tests/

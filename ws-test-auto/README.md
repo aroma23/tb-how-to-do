@@ -27,8 +27,10 @@ Refer requirements.txt
 
 # Robot
 ```commandline
+robot -A mock_all.arg
 robot -d results -i all -e ignore -V config/mock.py tests/
 robot -d results -i all -e ignore -V config/mock.py tests/positive.robot
+robot -d results -i get_users -i login_user -e ignore -V config/mock.py -L DEBUG:INFO tests/positive.robot;open results/report.html
 robot -d results -i all -e ignore -V config/mock.py tests/ -L DEBUG:INFO tests/;open results/report.html
 robot -d results -i get_users -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
 robot -d results -i create_user_negative -e ignore -V config/mock.py -L DEBUG:INFO tests/;open results/report.html
